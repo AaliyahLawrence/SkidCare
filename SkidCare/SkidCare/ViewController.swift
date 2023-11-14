@@ -106,6 +106,10 @@ class MessageViewController: UIViewController{
 /*
  * CALENDAR PAGE
  *
+ * SOURCES:
+ * https://developer.apple.com/documentation/uikit/uicalendarview
+ * https://medium.com/@ios_guru/custom-view-for-showing-a-calendar-1b512b0f772d
+ *
  * TO INCLUDE:
  *  - A calendar view lmao
  *  - Ability to log appointments
@@ -116,17 +120,41 @@ class MessageViewController: UIViewController{
 
 class CalendarViewController: UIViewController{
     @MainActor
+   
+    var calendarView: UICalendarView = {
+        let calendarObject = UICalendarView()
+        calendarObject.calendar = Calendar(identifier: .gregorian)
+        
+        return calendarObject
+    }()
+    
+    var calendarDelegate: CalendarDelegate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemYellow
+        
+        calendarDelegate = CalendarDelegate()
+        calendarView.delegate = calendarDelegate
+        
+        view.backgroundColor = .white
         title = "Calendar"
     }
     
-    //https://developer.apple.com/documentation/uikit/uicalendarview
-    //https://medium.com/@ios_guru/custom-view-for-showing-a-calendar-1b512b0f772d
-    let calendarView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-    let calendar = UIDatePicker(frame: calendarView.frame)
-    calendarView.addSubview(calendar)
+    
+    func setupUI() {
+        
+        view.addSubview(calendarView)
+        
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        calendarView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+        calendarView.heightAnchor.constraint(equalToConstant: 500).isActive = true
+        
+    
+        
+    }
+   
         
     
     

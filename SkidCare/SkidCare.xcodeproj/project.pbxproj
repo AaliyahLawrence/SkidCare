@@ -17,6 +17,7 @@
 		589208192B029747000AA6D6 /* SkidCareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589208182B029747000AA6D6 /* SkidCareTests.swift */; };
 		589208232B029747000AA6D6 /* SkidCareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589208222B029747000AA6D6 /* SkidCareUITests.swift */; };
 		589208252B029747000AA6D6 /* SkidCareUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589208242B029747000AA6D6 /* SkidCareUITestsLaunchTests.swift */; };
+		589208322B03F409000AA6D6 /* CalendarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589208312B03F409000AA6D6 /* CalendarDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		5892081E2B029747000AA6D6 /* SkidCareUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkidCareUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		589208222B029747000AA6D6 /* SkidCareUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkidCareUITests.swift; sourceTree = "<group>"; };
 		589208242B029747000AA6D6 /* SkidCareUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkidCareUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		589208312B03F409000AA6D6 /* CalendarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				5892080E2B029746000AA6D6 /* SkidCare.entitlements */,
 				5892080F2B029746000AA6D6 /* Info.plist */,
 				589208062B029742000AA6D6 /* SkidCare.xcdatamodeld */,
+				589208312B03F409000AA6D6 /* CalendarDelegate.swift */,
 			);
 			path = SkidCare;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				589208022B029742000AA6D6 /* ViewController.swift in Sources */,
+				589208322B03F409000AA6D6 /* CalendarDelegate.swift in Sources */,
 				589207FE2B029742000AA6D6 /* AppDelegate.swift in Sources */,
 				589208002B029742000AA6D6 /* SceneDelegate.swift in Sources */,
 				589208082B029742000AA6D6 /* SkidCare.xcdatamodeld in Sources */,
