@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5886FC9A2B068DA300B9A3F9 /* PrescriptionProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886FC992B068DA300B9A3F9 /* PrescriptionProperties.swift */; };
-		5886FC9C2B068DB700B9A3F9 /* PrescriptionsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886FC9B2B068DB700B9A3F9 /* PrescriptionsData.swift */; };
 		5886FCA02B069C6400B9A3F9 /* DateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886FC9F2B069C6400B9A3F9 /* DateData.swift */; };
 		589207FE2B029742000AA6D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589207FD2B029742000AA6D6 /* AppDelegate.swift */; };
 		589208002B029742000AA6D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589207FF2B029742000AA6D6 /* SceneDelegate.swift */; };
@@ -41,9 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5886FC992B068DA300B9A3F9 /* PrescriptionProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionProperties.swift; sourceTree = "<group>"; };
-		5886FC9B2B068DB700B9A3F9 /* PrescriptionsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionsData.swift; sourceTree = "<group>"; };
 		5886FC9F2B069C6400B9A3F9 /* DateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateData.swift; sourceTree = "<group>"; };
+		588D79A62B1509E70048B39A /* SkidCareRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SkidCareRelease.entitlements; sourceTree = "<group>"; };
 		589207FA2B029742000AA6D6 /* SkidCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkidCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		589207FD2B029742000AA6D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		589207FF2B029742000AA6D6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,8 +87,6 @@
 		5886FC982B068D7500B9A3F9 /* Prescriptions */ = {
 			isa = PBXGroup;
 			children = (
-				5886FC992B068DA300B9A3F9 /* PrescriptionProperties.swift */,
-				5886FC9B2B068DB700B9A3F9 /* PrescriptionsData.swift */,
 			);
 			path = Prescriptions;
 			sourceTree = "<group>";
@@ -103,6 +98,13 @@
 				5886FC9F2B069C6400B9A3F9 /* DateData.swift */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		588D79A52B1508290048B39A /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HomePage;
 			sourceTree = "<group>";
 		};
 		589207F12B029741000AA6D6 = {
@@ -128,6 +130,8 @@
 		589207FC2B029742000AA6D6 /* SkidCare */ = {
 			isa = PBXGroup;
 			children = (
+				588D79A62B1509E70048B39A /* SkidCareRelease.entitlements */,
+				588D79A52B1508290048B39A /* HomePage */,
 				5886FC9E2B069B6500B9A3F9 /* Calendar */,
 				5886FC982B068D7500B9A3F9 /* Prescriptions */,
 				589207FD2B029742000AA6D6 /* AppDelegate.swift */,
@@ -291,10 +295,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5886FC9A2B068DA300B9A3F9 /* PrescriptionProperties.swift in Sources */,
 				5886FCA02B069C6400B9A3F9 /* DateData.swift in Sources */,
 				589208022B029742000AA6D6 /* ViewController.swift in Sources */,
-				5886FC9C2B068DB700B9A3F9 /* PrescriptionsData.swift in Sources */,
 				589208322B03F409000AA6D6 /* CalendarDelegate.swift in Sources */,
 				589207FE2B029742000AA6D6 /* AppDelegate.swift in Sources */,
 				589208002B029742000AA6D6 /* SceneDelegate.swift in Sources */,
@@ -481,7 +483,7 @@
 				CODE_SIGN_ENTITLEMENTS = SkidCare/SkidCare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H48CWHJ75C;
+				DEVELOPMENT_TEAM = J5356ZUHYV;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SkidCare/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -507,10 +509,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SkidCare/SkidCare.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SkidCare/SkidCareRelease.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H48CWHJ75C;
+				DEVELOPMENT_TEAM = J5356ZUHYV;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SkidCare/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -525,6 +528,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = SkidmoreCS.SkidCare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
