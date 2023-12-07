@@ -12,10 +12,17 @@ import EventKitUI
 class ViewController: UIViewController {
     
     //Place credentials fields here
-    
+    private let iDField: UITextField = {
+        let idField = UITextField(frame: CGRect(x: 1, y: 1, width: 200, height: 30))
+        idField.backgroundColor = .white
+        idField.text = "Enter ID Number"
+        idField.textColor = .systemGreen
+        //idField.borderStyle = UITextField.BorderStyle.line
+        return idField
+    }()
     //Ideally would be a log-in page for skidmore
     private let button: UIButton = {
-        let button = UIButton(frame: CGRect(x:1,y:1,width: 200, height: 45))
+        let button = UIButton(frame: CGRect(x:1,y:-1,width: 200, height: 45))
         button.setTitle("Log In", for: .normal)
         button.backgroundColor = .white
         button.setTitleColor(.green, for: .normal)
@@ -26,6 +33,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGreen
+        view.addSubview(iDField)
         view.addSubview(button)
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         
@@ -100,7 +108,7 @@ class MessageViewController: UIViewController, UITableViewDelegate{
  * https://developer.apple.com/documentation/uikit/uicalendarview
  * https://medium.com/@ios_guru/custom-view-for-showing-a-calendar-1b512b0f772d
  * https://www.youtube.com/watch?v=B_VFHeg2LH4
- *
+ * https://www.youtube.com/watch?v=BgGbQmOAe0I&t=635s
  * TO INCLUDE:
  *  - A calendar view lmao
  *  - Ability to log appointments
@@ -108,15 +116,22 @@ class MessageViewController: UIViewController, UITableViewDelegate{
  *  - Core data to store appointment dates
  *  - Navigation to other pages
  */
+//switch to coredata
+struct Appointment {
+    var date: Date
+    var details: String
+}
 
-class CalendarViewController: UIViewController,UICalendarViewDelegate, EKEventViewDelegate{
-    let apptStore = EKEventStore()
+
+class CalendarViewController: UIViewController,UICalendarViewDelegate{
+
+    var appointments: [Appointment] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         createCalendar()
-        addEvents()
+        //appointmentScheduling(for: .date)
     }
     
     
@@ -142,35 +157,104 @@ class CalendarViewController: UIViewController,UICalendarViewDelegate, EKEventVi
             calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
     }
-    func addEvents(){
-       
-        func addButton(_ sender: Any){
-            apptStore.requestWriteOnlyAccessToEvents()
-            { [weak self] success, error in
-                if success, error == nil{
-                    DispatchQueue.main.async {
-                        guard let store = self?.apptStore else {return}
-                        
-                        let newAppt = EKEvent(eventStore: store)
-                        newAppt.title = "Schedule Appointment"
-                        newAppt.startDate = Date()
-                        
-                        let eventController = EKEventViewController()
-                        eventController.delegate = self
-                        eventController.event = newAppt
-                        self?.present(eventController, animated: true, completion: nil)
-                    }
-                }
-                
+    
+
+  
+        func appointmentScheduling(for date: Date) {
+            let alertController = UIAlertController(title: "Schedule Appointment", message: "Enter appointment details", preferredStyle: .alert)
+
+            alertController.addTextField { textField in
+                textField.placeholder = "Details"
             }
+
+            let scheduler = UIAlertAction(title: "Schedule", style: .default) { [weak self] _ in
+                guard let details = alertController.textFields?.first?.text else { return }
+
+                let newAppointment = Appointment(date: date, details: details)
+                self?.appointments.append(newAppointment)
+                //is there a way to highlight a date?
+
+
+                self?.appointmentDetails(for: date)
+            }
+
+            alertController.addAction(scheduler)
+
+            present(alertController, animated: true, completion: nil)
+        }
+
+        func appointmentDetails(for date: Date) {
+            if let appointment = appointments.first(where: { $0.date == date }) {
+                    
+                    let details = UILabel()
+                    details.translatesAutoresizingMaskIntoConstraints = false
+                    details.text = "Appointment Details:\nDate: \(appointment.date)\nDetails: \(appointment.details)"
+                    details.numberOfLines = 0
+                    details.textColor = .black
+
+                    view.addSubview(details)
+
+                    NSLayoutConstraint.activate([
+                        details.topAnchor.constraint(equalTo: view.bottomAnchor, constant: 20),
+                        details.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+                        details.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+                    ])
+                } else {
+                    print("No appointment scheduled for the selected date.") //or could be blank
+                }
         }
     }
-   
-    func eventViewController(_ controller: EKEventViewController, didCompleteWith action: EKEventViewAction) {
-        //pls idc
+
+//Extension of Calendar view for scheduling
+class AppointmentSchedulingViewController: UIViewController {
+    var appointments: [Appointment] = []
+    var selectedDate: Date!
+    var appointmentDetailsTextField: UITextField!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+
+        appointmentDetailsTextField = UITextField()
+        appointmentDetailsTextField.translatesAutoresizingMaskIntoConstraints = false
+        appointmentDetailsTextField.placeholder = "Enter appointment details"
+        appointmentDetailsTextField.borderStyle = .roundedRect
+        view.addSubview(appointmentDetailsTextField)
+
+        let scheduleButton = UIButton(type: .system)
+        scheduleButton.translatesAutoresizingMaskIntoConstraints = false
+        scheduleButton.setTitle("Schedule", for: .normal)
+        scheduleButton.addTarget(self, action: #selector(scheduleButtonTapped), for: .touchUpInside)
+        view.addSubview(scheduleButton)
+
+        NSLayoutConstraint.activate([
+            appointmentDetailsTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            appointmentDetailsTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            appointmentDetailsTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+
+            scheduleButton.topAnchor.constraint(equalTo: appointmentDetailsTextField.bottomAnchor, constant: 20),
+            scheduleButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
 
+    @objc func scheduleButtonTapped() {
+        guard let details = appointmentDetailsTextField.text else {
+            
+            return
+        }
+
+       
+        let newAppointment = Appointment(date: selectedDate, details: details)
+      
+        appointments.append(newAppointment)
+
+      
+        dismiss(animated: true, completion: nil)
+    }
 }
+
+
+
     
 
 /*
@@ -325,9 +409,10 @@ class LabViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
 
                var image: UIImage? {
                    switch self {
-                   case .check: return UIImage(systemName: "checkmark.circle.fill")
-                   case .cross: return UIImage(systemName: "xmark.circle.fill")
-                   case .caution: return UIImage(systemName: "exclamationmark.circle.fill")
+                       //Included pngs downloaded from the sf app
+                   case .check: return UIImage(systemName: "checkmark.circle")
+                   case .cross: return UIImage(systemName: "xmark.circle")
+                   case .caution: return UIImage(systemName: "questionmark.circle")
                    }
                }
            }
@@ -336,40 +421,42 @@ class LabViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                let imageView = UIImageView()
                imageView.translatesAutoresizingMaskIntoConstraints = false
                imageView.tintColor = UIColor.systemGreen // Change the color as needed
+               imageView.frame.size = CGSize(width: 2000, height: 4)
                return imageView
            }()
 
-           let tableView: UITableView = {
-               let tableView = UITableView()
-               tableView.translatesAutoresizingMaskIntoConstraints = false
-               return tableView
+           let labView: UITableView = {
+               let labView = UITableView()
+               labView.translatesAutoresizingMaskIntoConstraints = false
+               return labView
            }()
     
             //Hardcoded lab results for the time being
            let labResults: [String] = ["COVID-Test", "Iron Levels", "A1C Levels"]
-
     
-           var currentStatus: Status = .check {
-               didSet {
-                   statusImageView.image = currentStatus.image
-               }
-           }
-
+    var currentStatus: Status = .cross {
+        didSet {
+            statusImageView.image = currentStatus.image
+        }
+    }
+    
+        
+          
            override func viewDidLoad() {
                super.viewDidLoad()
 
                setUp()
 
-               tableView.delegate = self
-               tableView.dataSource = self
-               tableView.register(UITableViewCell.self, forCellReuseIdentifier: "LabResultCell")
+               labView.delegate = self
+               labView.dataSource = self
+               labView.register(UITableViewCell.self, forCellReuseIdentifier: "LabResultCell")
            }
 
            private func setUp() {
                view.backgroundColor = UIColor.white
 
                view.addSubview(statusImageView)
-               view.addSubview(tableView)
+               view.addSubview(labView)
 
                NSLayoutConstraint.activate([
                    statusImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -377,10 +464,10 @@ class LabViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                    statusImageView.heightAnchor.constraint(equalToConstant: 50),
                    statusImageView.widthAnchor.constraint(equalToConstant: 50),
 
-                   tableView.topAnchor.constraint(equalTo: statusImageView.bottomAnchor, constant: 20),
-                   tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                   tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                   tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+                   labView.topAnchor.constraint(equalTo: statusImageView.bottomAnchor, constant: 20),
+                   labView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                   labView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                   labView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
                ])
            }
 
