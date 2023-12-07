@@ -150,12 +150,14 @@ class CalendarViewController: UIViewController,UICalendarViewDelegate{
         
         view.addSubview(calendarView)
         
+        
         NSLayoutConstraint.activate([
             calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             calendarView.heightAnchor.constraint(equalToConstant: 300),
             calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
+        //appointmentScheduling()
     }
     
 
@@ -204,9 +206,9 @@ class CalendarViewController: UIViewController,UICalendarViewDelegate{
                 }
         }
     }
-
-//Extension of Calendar view for scheduling
-class AppointmentSchedulingViewController: UIViewController {
+/*
+//Extension of Calendar view for scheduling in a core data way
+class AppointmentSchedulingViewController: UIViewController /*Have table and delegate here to core datafy the appointments*/ {
     var appointments: [Appointment] = []
     var selectedDate: Date!
     var appointmentDetailsTextField: UITextField!
@@ -253,7 +255,7 @@ class AppointmentSchedulingViewController: UIViewController {
     }
 }
 
-
+*/
 
     
 
@@ -404,24 +406,26 @@ class PrescriptionViewController: UIViewController, UITableViewDelegate,UITableV
 class LabViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
     
-           enum Status {
-               case check, cross, caution
-
+           
+ 
+            /*
                var image: UIImage? {
                    switch self {
                        //Included pngs downloaded from the sf app
-                   case .check: return UIImage(systemName: "checkmark.circle")
-                   case .cross: return UIImage(systemName: "xmark.circle")
-                   case .caution: return UIImage(systemName: "questionmark.circle")
+                   case check: return UIImage(systemName: "checkmark.circle")
+                   case cross: return UIImage(systemName: "xmark.circle")
+                   case caution: return UIImage(systemName: "questionmark.circle")
                    }
                }
-           }
-
+           */
+    
+    //Change to func depending on the status of a test
            let statusImageView: UIImageView = {
                let imageView = UIImageView()
                imageView.translatesAutoresizingMaskIntoConstraints = false
                imageView.tintColor = UIColor.systemGreen // Change the color as needed
-               imageView.frame.size = CGSize(width: 2000, height: 4)
+               imageView.frame.size = CGSize(width: 2000, height: 450)
+               imageView.image = UIImage(systemName: "checkmark.circle")
                return imageView
            }()
 
@@ -432,13 +436,12 @@ class LabViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
            }()
     
             //Hardcoded lab results for the time being
-           let labResults: [String] = ["COVID-Test", "Iron Levels", "A1C Levels"]
+           let labResults: [String] = ["COVID-Test", "Iron Levels", "A1C Levels", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test"]
     
-    var currentStatus: Status = .cross {
-        didSet {
-            statusImageView.image = currentStatus.image
-        }
-    }
+      
+
+        
+    
     
         
           
