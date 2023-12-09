@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="true" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23C5055b" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Appointment123" representedClassName="Appointment123" syncable="YES" codeGenerationType="class"/>
+    <entity name="AppointmentMaker" representedClassName="AppointmentMaker" syncable="YES" codeGenerationType="class"/>
+    <entity name="Appts" representedClassName="Appts" syncable="YES" codeGenerationType="class">
+        <attribute name="appointment" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="time" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Label" representedClassName="Label" syncable="YES" codeGenerationType="class">
+        <attribute name="attribute" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="PrescriptionItem" representedClassName="PrescriptionItem" syncable="YES" codeGenerationType="class">
+        <attribute name="label" optional="YES" attributeType="String"/>
+    </entity>
 </model>
