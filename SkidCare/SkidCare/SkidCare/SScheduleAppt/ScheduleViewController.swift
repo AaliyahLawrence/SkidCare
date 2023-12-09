@@ -34,12 +34,23 @@ class AppointmentSchedulingViewController: UIViewController, UIScrollViewDelegat
     let apptScrollView = UIScrollView()
     var selectedTimeSlots: [String] = []
     var selectedAppointments: [String] = []
+    var selectedDate: Date?
+    var delegate: CalendarViewController?
     
 
     let timeSlots = ["9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"]
     
     let apptTypes = ["Physical","STI Testing","Family Planning","Chronic Illness Management","Counceling Center"]
 
+    
+    let scheduleButton: UIButton = {
+        let schedulebutton = UIButton(frame: CGRect(x:1,y:-1,width: 200, height: 45))
+        schedulebutton.setTitle("Save", for: .normal)
+        schedulebutton.backgroundColor = .white
+        schedulebutton.setTitleColor(.systemBlue, for: .normal)
+        return schedulebutton
+    }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,13 +60,22 @@ class AppointmentSchedulingViewController: UIViewController, UIScrollViewDelegat
         setupApptScrollView()
         populateTimeSlots()
         appTypepopulate()
+        scheduleButton.translatesAutoresizingMaskIntoConstraints = false
+        scheduleButton.setTitle("Save", for: .normal)
+        scheduleButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        view.addSubview(scheduleButton)
 
      
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scheduleButton.center = view.center
     }
 
     /* Scrollview for time */
     func setupTimeScrollView() {
-        timeScrollView.frame = CGRect(x: 0, y: 50, width: view.bounds.width, height: 44.0)
+        timeScrollView.frame = CGRect(x: 0, y: 250, width: view.bounds.width, height: 44.0)
         timeScrollView.contentSize = CGSize(width: CGFloat(timeSlots.count) * 100.0, height: 44.0)
         timeScrollView.showsHorizontalScrollIndicator = true
         timeScrollView.isDirectionalLockEnabled = true
@@ -97,7 +117,7 @@ class AppointmentSchedulingViewController: UIViewController, UIScrollViewDelegat
     
     /* Scrollview for appt type */
     func setupApptScrollView() {
-        apptScrollView.frame = CGRect(x: 0, y: 300, width: 200, height: 44.0)
+        apptScrollView.frame = CGRect(x: 0, y: 300, width: view.bounds.width, height: 44.0)
         apptScrollView.contentSize = CGSize(width: CGFloat(apptTypes.count) * 100.0, height: 44.0)
         apptScrollView.showsHorizontalScrollIndicator = true
         apptScrollView.isDirectionalLockEnabled = true
@@ -111,7 +131,7 @@ class AppointmentSchedulingViewController: UIViewController, UIScrollViewDelegat
         for (index, apptTypes) in apptTypes.enumerated() {
             let appTypeLabel = UILabel(frame: CGRect(x: xOffset, y: 0, width: 100.0, height: 44.0))
             appTypeLabel.text = apptTypes
-            appTypeLabel.textAlignment = .center
+            appTypeLabel.textAlignment = .left
             appTypeLabel.isUserInteractionEnabled = true
             appTypeLabel.tag = index
             appTypeLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(appTypeTapped(_:))))
@@ -133,25 +153,21 @@ class AppointmentSchedulingViewController: UIViewController, UIScrollViewDelegat
             }
             }
         }
-    /*
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return selectedTimeSlots.count
-        }
-
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-            cell.textLabel?.text = selectedTimeSlots[indexPath.row]
-            return cell
-        }
-    func tableView1(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return selectedAppointments.count
-        }
-
-        func tableView1(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-            cell.textLabel?.text = selectedAppointments[indexPath.row]
-            return cell
-        }
-     */
-     
+    
+    @objc private func saveButtonTapped() {
+            guard let selectedDate = selectedDate,
+                  let selectedTimeSlot = selectedTimeSlots.first,
+                  let selectedAppointmentType = selectedAppointments.first else {
+                
+                //A field is not selected
+                return
+            }
+            
+        delegate?.saveAppointment(date: selectedDate, timeSlot: selectedTimeSlot, appointmentType: selectedAppointmentType)
+        
+        navigationController?.popViewController(animated: true)
+            }
 }
+   
+     
+

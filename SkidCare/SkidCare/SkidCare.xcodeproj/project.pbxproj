@@ -10,7 +10,7 @@
 		5867BE2E2B2245D00034C3F6 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5867BE2D2B2245D00034C3F6 /* CalendarViewController.swift */; };
 		5867BE302B2246330034C3F6 /* PrescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5867BE2F2B2246330034C3F6 /* PrescriptionViewController.swift */; };
 		5867BE332B23AD120034C3F6 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5867BE322B23AD120034C3F6 /* ScheduleViewController.swift */; };
-		5867BE362B23C4690034C3F6 /* SkidCare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5867BE342B23C4690034C3F6 /* SkidCare.xcdatamodeld */; };
+		587AD8532B24D9FF008072DA /* Skidcare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 587AD8512B24D9FF008072DA /* Skidcare.xcdatamodeld */; };
 		5886FCA02B069C6400B9A3F9 /* DateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886FC9F2B069C6400B9A3F9 /* DateData.swift */; };
 		589207FE2B029742000AA6D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589207FD2B029742000AA6D6 /* AppDelegate.swift */; };
 		589208002B029742000AA6D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589207FF2B029742000AA6D6 /* SceneDelegate.swift */; };
@@ -45,7 +45,7 @@
 		5867BE2D2B2245D00034C3F6 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		5867BE2F2B2246330034C3F6 /* PrescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionViewController.swift; sourceTree = "<group>"; };
 		5867BE322B23AD120034C3F6 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
-		5867BE352B23C4690034C3F6 /* SkidCare.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SkidCare.xcdatamodel; sourceTree = "<group>"; };
+		587AD8522B24D9FF008072DA /* Skidcare.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Skidcare.xcdatamodel; sourceTree = "<group>"; };
 		5886FC9F2B069C6400B9A3F9 /* DateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateData.swift; sourceTree = "<group>"; };
 		588D79A62B1509E70048B39A /* SkidCareRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SkidCareRelease.entitlements; sourceTree = "<group>"; };
 		589207FA2B029742000AA6D6 /* SkidCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkidCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,7 +151,7 @@
 				5892080B2B029746000AA6D6 /* LaunchScreen.storyboard */,
 				5892080E2B029746000AA6D6 /* SkidCare.entitlements */,
 				5892080F2B029746000AA6D6 /* Info.plist */,
-				5867BE342B23C4690034C3F6 /* SkidCare.xcdatamodeld */,
+				587AD8512B24D9FF008072DA /* Skidcare.xcdatamodeld */,
 			);
 			path = SkidCare;
 			sourceTree = "<group>";
@@ -305,7 +305,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5867BE302B2246330034C3F6 /* PrescriptionViewController.swift in Sources */,
-				5867BE362B23C4690034C3F6 /* SkidCare.xcdatamodeld in Sources */,
 				5886FCA02B069C6400B9A3F9 /* DateData.swift in Sources */,
 				589208022B029742000AA6D6 /* ViewController.swift in Sources */,
 				5867BE332B23AD120034C3F6 /* ScheduleViewController.swift in Sources */,
@@ -313,6 +312,7 @@
 				589207FE2B029742000AA6D6 /* AppDelegate.swift in Sources */,
 				589208002B029742000AA6D6 /* SceneDelegate.swift in Sources */,
 				5867BE2E2B2245D00034C3F6 /* CalendarViewController.swift in Sources */,
+				587AD8532B24D9FF008072DA /* Skidcare.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,13 +665,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		5867BE342B23C4690034C3F6 /* SkidCare.xcdatamodeld */ = {
+		587AD8512B24D9FF008072DA /* Skidcare.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				5867BE352B23C4690034C3F6 /* SkidCare.xcdatamodel */,
+				587AD8522B24D9FF008072DA /* Skidcare.xcdatamodel */,
 			);
-			currentVersion = 5867BE352B23C4690034C3F6 /* SkidCare.xcdatamodel */;
-			path = SkidCare.xcdatamodeld;
+			currentVersion = 587AD8522B24D9FF008072DA /* Skidcare.xcdatamodel */;
+			path = Skidcare.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
