@@ -41,44 +41,15 @@ class CalendarViewController: UIViewController,UICalendarViewDelegate,  UITableV
     
     var selectedDate: Date!
     var appointmentDetailsTextField: UITextField!
-    let scheduleButton: UIButton = {
-        let schedulebutton = UIButton(frame: CGRect(x:1,y:-1,width: 200, height: 45))
-        schedulebutton.setTitle("Schedule", for: .normal)
-        schedulebutton.backgroundColor = .white
-        schedulebutton.setTitleColor(.systemBlue, for: .normal)
-        return schedulebutton
-    }()
-    
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         createCalendar()
         setupApptView()
-        //view.addSubview(scheduleButton)
-        scheduleButton.translatesAutoresizingMaskIntoConstraints = false
-        scheduleButton.setTitle("Schedule", for: .normal)
-        scheduleButton.addTarget(self, action: #selector(scheduleButtonTapped), for: .touchUpInside)
-        
-        
-        
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        scheduleButton.center = view.center
-    }
     
-    @objc private func scheduleButtonTapped() {
-        let appointmentSchedulingVC = AppointmentSchedulingViewController()
-        appointmentSchedulingVC.delegate = self
-        navigationController?.pushViewController(appointmentSchedulingVC, animated: true)
-        updateUI()
-    }
-
     let calendarView = UICalendarView()
     func createCalendar(){
         calendarView.delegate = self
@@ -91,9 +62,6 @@ class CalendarViewController: UIViewController,UICalendarViewDelegate,  UITableV
         calendarView.layer.cornerRadius = 12
         calendarView.backgroundColor = .white
         view.addSubview(calendarView)
-        if appointments.isEmpty {
-            view.addSubview(scheduleButton)
-        }
         
         let selection = UICalendarSelectionSingleDate(delegate: self)
         calendarView.selectionBehavior = selection
@@ -110,18 +78,17 @@ class CalendarViewController: UIViewController,UICalendarViewDelegate,  UITableV
     }
     
     
-     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-         guard let selectedDate = dateComponents?.date else{
-             return
-         }
-         let appointmentSchedulingVC = AppointmentSchedulingViewController()
-                appointmentSchedulingVC.delegate = self
-         appointmentSchedulingVC.selectedDate = dateComponents?.date
-                navigationController?.pushViewController(appointmentSchedulingVC, animated: true)
-            updateUI()
-     }
+    func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
+        guard (dateComponents?.date) != nil else{
+            return
+        }
+        let appointmentSchedulingVC = AppointmentSchedulingViewController()
+        appointmentSchedulingVC.delegate = self
+        appointmentSchedulingVC.selectedDate = dateComponents?.date
+        navigationController?.pushViewController(appointmentSchedulingVC, animated: true)
+        updateUI()
     
-    
+    }
     
     
     func setupApptView() {
@@ -130,9 +97,9 @@ class CalendarViewController: UIViewController,UICalendarViewDelegate,  UITableV
         appointmentView.delegate = self
         appointmentView.dataSource = self
         appointmentView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-            
+        
         view.addSubview(appointmentView)
-            
+        
         NSLayoutConstraint.activate([
             appointmentView.topAnchor.constraint(equalTo: view.bottomAnchor, constant: 20),
             appointmentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
@@ -141,44 +108,33 @@ class CalendarViewController: UIViewController,UICalendarViewDelegate,  UITableV
         ])
     }
     
-       
-       func saveAppointment(date: Date, timeSlot: String, appointmentType: String) {
-           let newAppointment = Appointment(date: date, details: appointmentType, time: timeSlot)
-           appointments.append(newAppointment)           
-           updateUI()
-       }
-       
-       func updateUI() {
-           appointmentView.reloadData()
-           calendarUIUpdate()
-           scheduleButton.isHidden = !appointments.isEmpty
-           
-       }
     
-    func calendarUIUpdate(){
-        if let selectedDate = selectedDate {
-            let selectedDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: selectedDate)
-            let selectedDateDecoration = UICalendarView.Decoration()
-            calendarView.reloadDecorations(forDateComponents: [selectedDateComponents], animated: true)
-        } else {
-            print("Selected date is nil.")
-        }
-            
+    func saveAppointment(date: Date, timeSlot: String, appointmentType: String) {
+        let newAppointment = Appointment(date: date, details: appointmentType, time: timeSlot)
+        appointments.append(newAppointment)
+        updateUI()
     }
     
-   
+    func updateUI() {
+        appointmentView.reloadData()
+        
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return appointments.count
-        }
-        
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            let appointment = appointments[indexPath.row]
-            cell.textLabel?.text = "\(appointment.time) - \(appointment.details)"
-            return cell
-        }
+        return appointments.count
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let appointment = appointments[indexPath.row]
+        cell.textLabel?.text = "\(appointment.time) - \(appointment.details)"
+        return cell
+    }
+    
+    
+    
+}
+
     
     /*This presented the schedule as an alert, similar to our todo app example
      func appointmentScheduling(for date: Date) {
@@ -227,4 +183,4 @@ class CalendarViewController: UIViewController,UICalendarViewDelegate,  UITableV
      }
      */
     
-}
+

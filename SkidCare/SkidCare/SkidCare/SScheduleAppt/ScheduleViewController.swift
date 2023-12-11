@@ -9,25 +9,6 @@
 
 import Foundation
 import UIKit
-/* When date is clicked
-appointmentDetailsTextField = UITextField()
-appointmentDetailsTextField.translatesAutoresizingMaskIntoConstraints = false
-appointmentDetailsTextField.placeholder = "Enter appointment details"
-appointmentDetailsTextField.borderStyle = .roundedRect
-view.addSubview(appointmentDetailsTextField)
-
-
-
-NSLayoutConstraint.activate([
-    appointmentDetailsTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-    appointmentDetailsTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-    appointmentDetailsTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-
-    scheduleButton.topAnchor.constraint(equalTo: appointmentDetailsTextField.bottomAnchor, constant: 20),
-    scheduleButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-])*/
-//appointmentScheduling(for: Date.now)
-//appointmentDetails(for: Date.now)
 
 class AppointmentSchedulingViewController: UIViewController, UIScrollViewDelegate /*Have table and delegate here to core datafy the appointments*/ {
     let timeScrollView = UIScrollView()
@@ -35,7 +16,7 @@ class AppointmentSchedulingViewController: UIViewController, UIScrollViewDelegat
     var selectedTimeSlots: [String] = []
     var selectedAppointments: [String] = []
     var selectedDate: Date?
-    var delegate: CalendarViewController?
+    weak var delegate: CalendarViewController?
     
 
     let timeSlots = ["9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"]
@@ -159,13 +140,17 @@ class AppointmentSchedulingViewController: UIViewController, UIScrollViewDelegat
                   let selectedTimeSlot = selectedTimeSlots.first,
                   let selectedAppointmentType = selectedAppointments.first else {
                 
-                //A field is not selected
+                //field is not selected
                 return
             }
             
         delegate?.saveAppointment(date: selectedDate, timeSlot: selectedTimeSlot, appointmentType: selectedAppointmentType)
         
-        navigationController?.popViewController(animated: true)
+        if let calendarVC = navigationController?.viewControllers.first(where: { $0 is CalendarViewController }) as? CalendarViewController {
+            calendarVC.updateUI()
+            navigationController?.popToViewController(calendarVC, animated: true)
+        }
+
             }
 }
    
