@@ -26,7 +26,7 @@ class LabViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     }()
     
     //Hardcoded lab results for the time being
-    let labResults: [String] = ["COVID-Test", "Iron Levels", "A1C Levels", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test"]
+    let labResults: [String] = ["COVID-Test", "Iron Levels", "A1C Levels", "Blood Test", "Bone Density", "Mammogram", "Pap Smear", "Eye exam", "Cholesterol","COVID-Test", "Iron Levels", "A1C Levels", "Blood Test", "Bone Density", "Mammogram", "Pap Smear", "Eye exam", "Cholesterol", "COVID-Test", "Iron Levels", "A1C Levels", "Blood Test", "Bone Density", "Mammogram", "Pap Smear", "Eye exam", "Cholesterol", "COVID-Test", "Iron Levels", "A1C Levels", "Blood Test", "Bone Density", "Mammogram", "Pap Smear", "Eye exam", "Cholesterol"  ]
     
     
     override func viewDidLoad() {

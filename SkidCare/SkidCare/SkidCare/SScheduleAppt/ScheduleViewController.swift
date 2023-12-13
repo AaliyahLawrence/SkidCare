@@ -18,6 +18,9 @@ class AppointmentSchedulingViewController: UIViewController, UIScrollViewDelegat
     var selectedDate: Date?
     weak var delegate: CalendarViewController?
     
+    
+  
+    
 
     let timeSlots = ["9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"]
     
@@ -45,10 +48,46 @@ class AppointmentSchedulingViewController: UIViewController, UIScrollViewDelegat
         scheduleButton.setTitle("Save", for: .normal)
         scheduleButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         view.addSubview(scheduleButton)
+        
+        //Adding photo to op of screen
+        //Resource: https://stackoverflow.com/questions/55916477/how-to-add-image-view-with-some-constraints-programmatically-using-swift?answertab=modifieddesc#tab-top
+        let imageName = "SkidmoreTbred.jpeg"
+        let tBred = UIImage(named: imageName)
+        let tBView = UIImageView(image: tBred!)
+        tBView.frame = CGRect(x: 0, y: 0, width: 100, height: 200)
+        
+        view.addSubview(tBView)
+        tBView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tBView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            tBView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            tBView.heightAnchor.constraint(equalToConstant: 300),
+            tBView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        ])
+        
+        
+        //to avoid overlapping with the other scrollview and image
+        NSLayoutConstraint.activate([
+            timeScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            timeScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            timeScrollView.topAnchor.constraint(equalTo: tBView.bottomAnchor, constant: 10)
+            
+        ])
+        
+        NSLayoutConstraint.activate([
+            apptScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            apptScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            apptScrollView.topAnchor.constraint(equalTo: timeScrollView.bottomAnchor, constant: 10),
+            
+        ])
 
      
     }
     
+
+ 
+
+        
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scheduleButton.center = view.center
@@ -62,6 +101,12 @@ class AppointmentSchedulingViewController: UIViewController, UIScrollViewDelegat
         timeScrollView.isDirectionalLockEnabled = true
         timeScrollView.delegate = self
         view.addSubview(timeScrollView)
+        NSLayoutConstraint.activate([
+            timeScrollView.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10),
+            timeScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            timeScrollView.heightAnchor.constraint(equalToConstant: 300),
+            timeScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        ])
        }
 
     func populateTimeSlots() {
@@ -105,6 +150,8 @@ class AppointmentSchedulingViewController: UIViewController, UIScrollViewDelegat
         apptScrollView.delegate = self
         
         view.addSubview(apptScrollView)
+        
+        
        }
     func appTypepopulate() {
         var xOffset: CGFloat = 0.0

@@ -10,7 +10,8 @@ import EventKitUI
 import Foundation
 /*
  * PRESCRIPTIONS
- *https://stackoverflow.com/questions/42553749/core-data-failed-to-load-model
+ * https://stackoverflow.com/questions/42553749/core-data-failed-to-load-model
+ * helped when my core data model went haywire
  * TO INCLUDE:
  *  - Ability to add and log prescriptions
  *  - Navigation to other pages

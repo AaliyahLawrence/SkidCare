@@ -54,7 +54,7 @@ class CalendarViewController: UIViewController,UICalendarViewDelegate,  UITableV
     func createCalendar(){
         calendarView.delegate = self
         calendarView.translatesAutoresizingMaskIntoConstraints = false
-        
+        title = "Schedule Appointment"
         calendarView.calendar = .current
         calendarView.locale = .current
         calendarView.fontDesign = .rounded

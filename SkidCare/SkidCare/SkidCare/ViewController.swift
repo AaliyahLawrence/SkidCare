@@ -49,7 +49,7 @@ class ViewController: UIViewController {
     @objc func didTapButton() {
         let tabBarVC = UITabBarController()
         let vc3 = UINavigationController(rootViewController: CalendarViewController())
-        vc3.title = "Calendar"
+        vc3.title = "Schedule Appointment"
         let vc4 = UINavigationController(rootViewController: PrescriptionViewController())
         vc4.title = "Prescriprions"
         let vc5 = UINavigationController(rootViewController: LabViewController())
